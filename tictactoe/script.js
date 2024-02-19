@@ -1,17 +1,16 @@
 let currentPlayer = 'X';
 let board = ['', '', '', '', '', '', '', '', ''];
 let gameActive = true;
+let scores = { 'X': 0, 'O': 0 };
 
 function makeMove(index) {
     if (gameActive && board[index] === '') {
         board[index] = currentPlayer;
-
-        // Add animation class
-        const cellElement = document.getElementById('board').children[index];
-        cellElement.textContent = currentPlayer;
-        cellElement.classList.add('tile-clicked');
+        document.getElementById('board').children[index].textContent = currentPlayer;
 
         if (checkWinner()) {
+            scores[currentPlayer] += 1; // Increment the score for the winning player
+            updateScores(); // Update the displayed scores
             alert(`Player ${currentPlayer} wins!`);
             resetGame();
         } else if (board.every(cell => cell !== '')) {
@@ -20,25 +19,14 @@ function makeMove(index) {
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             updateCurrentPlayer();
-            updateBoardColors();
-            setTimeout(() => {
-                // Remove animation class after a delay
-                cellElement.classList.remove('tile-clicked');
-            }, 300);
         }
     }
 }
 
-
-function updateBoardColors() {
-    const cells = document.getElementById('board').children;
-
-    for (let i = 0; i < cells.length; i++) {
-        const cellValue = board[i];
-        cells[i].style.backgroundColor = cellValue === 'X' ? '#87ceeb' : (cellValue === 'O' ? '#ff8c00' : '#eee');
-    }
+function updateScores() {
+    document.getElementById('scoreX').textContent = `Player X: ${scores['X']}`;
+    document.getElementById('scoreO').textContent = `Player O: ${scores['O']}`;
 }
-
 
 function updateCurrentPlayer() {
     const currentPlayerElement = document.getElementById('currentPlayer');
@@ -66,7 +54,6 @@ function resetGame() {
     const cells = document.getElementById('board').children;
     for (let i = 0; i < cells.length; i++) {
         cells[i].textContent = '';
-        cells[i].style.backgroundColor = '';
     }
 
     updateCurrentPlayer();
@@ -74,3 +61,4 @@ function resetGame() {
 
 // Initial setup
 updateCurrentPlayer();
+updateScores();
