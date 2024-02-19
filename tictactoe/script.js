@@ -6,33 +6,44 @@ let scores = { 'X': 0, 'O': 0 };
 function makeMove(index) {
     if (gameActive && board[index] === '') {
         board[index] = currentPlayer;
+
+        // Add animation class
         const cellElement = document.getElementById('board').children[index];
         cellElement.textContent = currentPlayer;
-
-        // Remove previous player color class
-        cellElement.classList.remove('X', 'O');
-        
-        // Add current player color class
-        cellElement.classList.add(currentPlayer.toLowerCase());
+        cellElement.classList.add('tile-clicked');
 
         if (checkWinner()) {
             scores[currentPlayer] += 1; // Increment the score for the winning player
             updateScores(); // Update the displayed scores
-            showWinMessage(`Player ${currentPlayer} wins!`);
+            alert(`Player ${currentPlayer} wins!`);
             resetGame();
         } else if (board.every(cell => cell !== '')) {
-            showWinMessage('It\'s a draw!');
+            alert('It\'s a draw!');
             resetGame();
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             updateCurrentPlayer();
+            updateBoardColors();
+            setTimeout(() => {
+                // Remove animation class after a delay
+                cellElement.classList.remove('tile-clicked');
+            }, 300);
         }
     }
 }
 
 function updateScores() {
-    document.getElementById('scoreX').textContent = `Player X: ${scores['X']}`;
-    document.getElementById('scoreO').textContent = `Player O: ${scores['O']}`;
+    document.getElementById('scoreX').textContent = `X: ${scores['X']}`;
+    document.getElementById('scoreO').textContent = `O: ${scores['O']}`;
+}
+
+function updateBoardColors() {
+    const cells = document.getElementById('board').children;
+
+    for (let i = 0; i < cells.length; i++) {
+        const cellValue = board[i];
+        cells[i].style.backgroundColor = cellValue === 'X' ? '#87ceeb' : (cellValue === 'O' ? '#ff8c00' : '#eee');
+    }
 }
 
 function updateCurrentPlayer() {
@@ -61,11 +72,13 @@ function resetGame() {
     const cells = document.getElementById('board').children;
     for (let i = 0; i < cells.length; i++) {
         cells[i].textContent = '';
+        cells[i].style.backgroundColor = '';
         cells[i].classList.remove('X', 'O'); // Remove player color classes
     }
 
     updateCurrentPlayer();
 }
+
 
 // Initial setup
 updateCurrentPlayer();

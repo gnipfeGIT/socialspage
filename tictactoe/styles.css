@@ -18,6 +18,20 @@ body {
     gap: 5px;
 }
 
+#score-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#scoreX, #scoreO, #scoreDraw {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #fff; /* Adjust the color as needed */
+}
+
+
+
 .cell {
     width: 100px;
     height: 100px;
@@ -37,18 +51,6 @@ body {
 
 #currentPlayer {
     color: #fff; /* Changes Text Color above the Game */
-}
-
-#score-container {
-    text-align: center;
-    margin-top: 20px; /* Adjust the spacing as needed */
-}
-
-#scoreX, #scoreO {
-    display: inline-block;
-    margin: 0 10px;
-    font-size: 18px; /* Adjust the font size as needed */
-    color: #fff;
 }
 
 .tile-clicked {
