@@ -7,6 +7,7 @@ function makeMove(index) {
     if (gameActive && board[index] === '') {
         board[index] = currentPlayer;
         document.getElementById('board').children[index].textContent = currentPlayer;
+        document.getElementById('board').children[index].classList.add(currentPlayer.toLowerCase()); // Add player color class
 
         if (checkWinner()) {
             scores[currentPlayer] += 1; // Increment the score for the winning player
@@ -54,6 +55,7 @@ function resetGame() {
     const cells = document.getElementById('board').children;
     for (let i = 0; i < cells.length; i++) {
         cells[i].textContent = '';
+        cells[i].classList.remove('X', 'O'); // Remove player color classes
     }
 
     updateCurrentPlayer();
