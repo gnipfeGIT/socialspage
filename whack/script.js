@@ -4,7 +4,6 @@ const maxFaces = 3; // Adjust the maximum number of faces displayed simultaneous
 function whack(event) {
     if (event.target.classList.contains('face')) {
         score += 1; // Increment score for hitting the face
-        event.target.remove(); // Remove the face element
     } else {
         score -= 1; // Decrement score for missing the face
     }
