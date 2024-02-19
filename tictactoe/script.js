@@ -6,16 +6,22 @@ let scores = { 'X': 0, 'O': 0 };
 function makeMove(index) {
     if (gameActive && board[index] === '') {
         board[index] = currentPlayer;
-        document.getElementById('board').children[index].textContent = currentPlayer;
-        document.getElementById('board').children[index].classList.add(currentPlayer.toLowerCase()); // Add player color class
+        const cellElement = document.getElementById('board').children[index];
+        cellElement.textContent = currentPlayer;
+
+        // Remove previous player color class
+        cellElement.classList.remove('X', 'O');
+        
+        // Add current player color class
+        cellElement.classList.add(currentPlayer.toLowerCase());
 
         if (checkWinner()) {
             scores[currentPlayer] += 1; // Increment the score for the winning player
             updateScores(); // Update the displayed scores
-            alert(`Player ${currentPlayer} wins!`);
+            showWinMessage(`Player ${currentPlayer} wins!`);
             resetGame();
         } else if (board.every(cell => cell !== '')) {
-            alert('It\'s a draw!');
+            showWinMessage('It\'s a draw!');
             resetGame();
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
