@@ -3,10 +3,13 @@ const maxFaces = 3; // Adjust the maximum number of faces displayed simultaneous
 
 function whack(event) {
     if (event.target.classList.contains('face')) {
-        score++;
-        updateScore();
-        event.target.style.display = 'none';
+        score += 1; // Increment score for hitting the face
+    } else {
+        score -= 1; // Decrement score for missing the face
     }
+
+    updateScore();
+    respawnFace();
 }
 
 function getRandomInterval() {
@@ -29,7 +32,7 @@ function getRandomEmoji() {
 
 function showFaces() {
     const faces = document.querySelectorAll('.face');
-    
+
     faces.forEach(face => {
         face.style.display = Math.random() > 0.5 ? 'flex' : 'none';
         if (face.style.display === 'flex') {
