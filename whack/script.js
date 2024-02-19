@@ -4,6 +4,10 @@ const maxFaces = 3; // Adjust the maximum number of faces displayed simultaneous
 function whack(event) {
     if (event.target.classList.contains('face')) {
         score += 1; // Increment score for hitting the face
+        event.target.classList.add('fade-out'); // Add fade-out class for transition effect
+        setTimeout(() => {
+            event.target.remove(); // Remove the face element after the transition
+        }, 300); // Adjust the duration of the transition (in milliseconds)
     } else {
         score -= 1; // Decrement score for missing the face
     }
