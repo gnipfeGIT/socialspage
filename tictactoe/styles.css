@@ -39,6 +39,18 @@ body {
     color: #fff; /* Changes Text Color above the Game */
 }
 
+#score-container {
+    text-align: center;
+    margin-top: 20px; /* Adjust the spacing as needed */
+}
+
+#scoreX, #scoreO {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 18px; /* Adjust the font size as needed */
+    color: #fff;
+}
+
 .tile-clicked {
     animation: tileClickAnimation 0.3s ease-in-out;
 }
